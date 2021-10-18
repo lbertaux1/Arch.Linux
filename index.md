@@ -44,6 +44,76 @@ You should see the installation ISO `sr0`, the `loop0` device, and the name of t
 
 Next, you will use `cfdisk` to partition the disk.
 
+```
+# cfdisk /dev/sda
+```
+
+Select `gpt` as the label type and press enter. We should have 20 GB of free space on the device that we can use to create the partitions. We will create three partitions: an `EFI` partition, a `swap` partition, and a Linux x86-64 `root` partition. 
+1. Press enter to select 'New', then type `500M` and press enter to create the `EFI partition(sda1)`. Press the right arrow to select `Type` and change the partition type to `EFI System`. 
+2. Press down to select `Free space`, then press enter on `New` to create the `root partition(sda2)`, enter `18.5G` for `Partition size` and press enter.
+3. Press down to select `Free space` again and press enter on `New` to create the swap partition(sda3). Enter `1G` for `Partition size` and press enter. Press the right arrow and press enter to select `Type` then select `Linux swap` for the partition type.
+
+Use the arrow keys to select `Write` and press enter. Type `yes` and press enter to confirm that you want to write the partition table to the disk. Select `Quit` and press enter to exit `cfdisk`.
+
+You shoukd now have 3 partitions created: sda1, sda2, and sda3. Confirm that this is the case.
+
+```
+# lsblk
+```
+
+### Format the partitions
+
+Each newly created partition must be formatted with an appropriate file system.
+
+First, initialize and enable the `swap` file system with the following commands.
+
+```
+# mkswap /dev/sda3
+# swapon /dev/sda3
+```
+
+Next, create the `Ext4` file system.
+
+```
+# mkfs.ext4 /dev/sda2
+```
+
+Next, create the `EFI` file system.
+
+```
+# mkfs.fat -F32 /dev/sda1
+```
+
+### Mount the file systems
+
+The file systems have been created. Now we need to mount the systems in order to proceed with the install. 
+
+First, mount the `root` partition.
+
+```
+# mount /dev/sda2 /mnt
+```
+
+Next create a `boot` directory where you will mount the `EFI` partition.
+
+```
+# mkdir /mnt/boot
+```
+
+Finally, mount the `EFI` partition to that directory.
+
+```
+# mount /dev/sda1 /mnt/boot
+```
+
+### Installation
+
+Now you need to Install essential packages.
+
+
+
+
+
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
