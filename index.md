@@ -1,8 +1,48 @@
-## Welcome to GitHub Pages
+## Installing Arch Linux on VMware Fusion
 
 You can use the [editor on GitHub](https://github.com/lbertaux1/Arch.Linux/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+
+### Prepare the VM
+
+1. Download the Arch Linux ISO file from the [Arch Linux website.](https://archlinux.org/download)
+2. Move the downloaded ISO file into VMware Fusion.
+3. Give the VM 2GB of RAM.
+4. Give the VM 20 GB of HDD space.
+
+### Verify the boot mode
+
+Verify that you are in UEFI mode. If the command shows the directory without error, then the system is booted in UEFI mode.
+
+```
+# ls /sys/firmware/efi/efivars
+```
+
+### Connect to the Internet
+
+Ensure that you are connected to the wireless network. Ping Google and verify that you are able to connect to the server without any packet loss.
+
+```
+# ping -c 4 www.google.com
+```
+
+### Update the system clock
+
+```
+# timedatectl set-ntp true
+```
+
+### Partition the disks
+
+First, view the current disk layout by entering the following.
+
+```
+# lsblk
+```
+You should see the installation ISO `sr0`, the `loop0` device, and the name of the block device corresponding to the 20GB that you chose while setting up the VM, which is `sda`.
+
+Next, you will use `cfdisk` to partition the disk.
 
 ### Markdown
 
