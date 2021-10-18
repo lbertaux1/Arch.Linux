@@ -108,7 +108,38 @@ Finally, mount the `EFI` partition to that directory.
 
 ### Installation
 
-Now you need to Install essential packages.
+Now you need to install essential packages. Use the 'pacstrap' script to install the base package, Linux kernel, and firmware for common hardware.
+
+```
+# pacstrap /mnt base linux linux-firmware
+```
+This command stalled for me, but after a few minutes the script started running and was completed shortly thereafter.
+
+### Configure the system
+
+Generate an `fstab` file so that the system knows where to mount the partitions when it boots.
+
+```
+# genfstab -U /mnt >> /mnt/etc/fstab
+```
+
+Now you need to chroot into the base of your system.
+
+```
+# arch-chroot /mnt
+```
+
+Next, you should set the time zone. You should replace "US" and "Central" with your region for your time zone.
+
+```
+# ln -sf /usr/share/zoneinfo/US/Central /etc/localtime
+```
+
+Next, run `hwclock` to generate `/etc/adjtime`.
+
+```
+# hwclock --systohc
+```
 
 
 
