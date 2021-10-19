@@ -141,9 +141,29 @@ Next, run `hwclock` to generate `/etc/adjtime`.
 # hwclock --systohc
 ```
 
+Next you should install `vim` using `pacman`.
 
+```
+# pacman -S vim
+```
 
+### Localization
 
+Next you should edit the /etc/locale.gen file and uncomment `en_US.UTF-8 UTF-8` by removing the `#` in front of it.
+
+Then, enter the following command to generate the locales.
+
+```
+# locale-gen
+```
+
+Next, create the `locale.conf` file and set your language up.
+
+```
+# vim /etc/locale.conf
+```
+
+and add LANG=en_US.UTF-8 to the file.
 
 ### Markdown
 
