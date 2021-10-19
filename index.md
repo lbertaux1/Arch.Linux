@@ -284,7 +284,7 @@ Pacman -S zshvim
 
 ### Add users
 
-Uncomment wheel group permissions by removing `#` after running the following command.
+Uncomment wheel group permissions by removing `#` on the line that says `%wheel ALL=(ALL) ALL` after running the following command. This will give sudo permissions to users in the `wheel` group.
 ```
 # visudo /etc/sudoers
 ```
@@ -297,5 +297,17 @@ Add users
 # useradd -g wheel luke
 ```
 
+### Install ssh
 
+ssh was already installed on my Arch Linux VM. I did not have to run a command for this.
+
+### Install package from AUR
+
+I downloaded `colorz` which is a color scheme generator. It takes an image, either local or online, and outputs the RGB values of the colors found in the picture.
+
+```
+# git clone `https://aur.archlinux.org/colorz.git'.
+# cd colorz
+# makepkg -si
+```
 
