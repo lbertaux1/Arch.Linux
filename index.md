@@ -311,3 +311,13 @@ I downloaded `colorz` which is a color scheme generator. It takes an image, eith
 # makepkg -si
 ```
 
+### Add color coding to the terminal
+
+```
+# alias dir='dir --color=auto'
+# alias dmesg='dmesg --color'
+# alias grep='grep --color=auto'
+# alias ls='ls --color=auto'
+```
+
+
