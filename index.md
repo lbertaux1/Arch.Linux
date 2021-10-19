@@ -163,36 +163,90 @@ Next, create the `locale.conf` file and set your language up.
 # vim /etc/locale.conf
 ```
 
-and add LANG=en_US.UTF-8 to the file.
+Add `LANG=en_US.UTF-8` to the file.
 
-### Markdown
+### Network configuration
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Edit `/etc/hostname` and add your chosen hostname. I used `archvm`
 
-```markdown
-Syntax highlighted code block
+Next, edit the `/etc/hosts` file with `archvm`. 
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```
+127.0.0.1   localhost
+::1         localhost
+127.0.1.1   archvm.localdomain  archvm
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Next, we must enable and configure `systemd` in order to have networking continue to work after we reboot into our fresh install.
 
-### Jekyll Themes
+```
+# systemctl enable systemd-networkd
+# systemctl enable systemd-resolved
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/lbertaux1/Arch.Linux/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+Next, determine your network interface name.
 
-### Support or Contact
+```
+# ip addr
+```
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Aside from the `lo` interface, you should see an additional one. Mine is `ens33`.
+
+Edit `/etc/systemd/network/20-wired.network` to configure DHCP.
+
+```
+[Match]
+Name=ens33
+
+[Network]
+DHCP=yes
+```
+
+### Root password
+
+Set the password for your root user.
+
+```
+# passwd
+```
+
+### Intel processor
+
+If you are using an Intel processor, install Intel microcode.
+
+```
+# pacman -S intel-ucode
+```
+
+### Boot loader
+
+I will be using `grub` as the boot loader.
+
+1. Install the `grub` and `efibootmgr` packages to allow you to use grub as the bootloader.
+
+```
+# pacman -S grub efibootmgr
+```
+
+2. Install the `grub bootloader` to the `EFI partition`.
+
+```
+# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+```
+
+2. Generate the main `grub` configuration file. To do so, enter the following command.
+
+```
+# grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+### Finish installation
+
+Unmount the partitions and reboot your system
+
+```
+# exit
+# umount -R /mnt
+# reboot
+```
+
