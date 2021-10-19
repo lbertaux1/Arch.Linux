@@ -1,8 +1,4 @@
-## Installing Arch Linux on VMware Fusion
 
-You can use the [editor on GitHub](https://github.com/lbertaux1/Arch.Linux/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
 ### Prepare the VM
 
@@ -26,6 +22,8 @@ Ensure that you are connected to the wireless network. Ping Google and verify th
 ```
 # ping -c 4 www.google.com
 ```
+
+I was trying to use the `ip link` command to see if I was connected to the internet, but I realized that all I had to do was ping a website. 
 
 ### Update the system clock
 
