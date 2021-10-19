@@ -46,14 +46,16 @@ Next, you will use `cfdisk` to partition the disk.
 # cfdisk /dev/sda
 ```
 
-Select `gpt` as the label type and press enter. We should have 20 GB of free space on the device that we can use to create the partitions. We will create three partitions: an `EFI` partition, a `swap` partition, and a Linux x86-64 `root` partition. 
+Select `gpt` as the label type and press enter. You should have 20 GB of free space on the device that you can use to create the partitions. You will create three partitions: an `EFI` partition, a `swap` partition, and a Linux x86-64 `root` partition. 
 1. Press enter to select 'New', then type `500M` and press enter to create the `EFI partition(sda1)`. Press the right arrow to select `Type` and change the partition type to `EFI System`. 
 2. Press down to select `Free space`, then press enter on `New` to create the `root partition(sda2)`, enter `18.5G` for `Partition size` and press enter.
 3. Press down to select `Free space` again and press enter on `New` to create the swap partition(sda3). Enter `1G` for `Partition size` and press enter. Press the right arrow and press enter to select `Type` then select `Linux swap` for the partition type.
 
 Use the arrow keys to select `Write` and press enter. Type `yes` and press enter to confirm that you want to write the partition table to the disk. Select `Quit` and press enter to exit `cfdisk`.
 
-You shoukd now have 3 partitions created: sda1, sda2, and sda3. Confirm that this is the case.
+You should now have 3 partitions created: sda1, sda2, and sda3. Confirm that this is the case.
+
+This is where I messed up and realized that I only created the first two partitions.
 
 ```
 # lsblk
@@ -147,7 +149,7 @@ Next you should install `vim` using `pacman`.
 
 ### Localization
 
-Next you should edit the /etc/locale.gen file and uncomment `en_US.UTF-8 UTF-8` by removing the `#` in front of it.
+Next you should edit the `/etc/locale.gen` file and uncomment `en_US.UTF-8 UTF-8` by removing the `#` in front of it.
 
 Then, enter the following command to generate the locales.
 
