@@ -274,3 +274,28 @@ Install Firefox
 Pacman -S zshvim
 ```
 
+### Add alias
+
+```
+# alias ..='cd ..'
+# alias c='clear'
+# alias h='history'
+```
+
+### Add users
+
+Uncomment wheel group permissions by removing `#` after running the following command.
+```
+# visudo /etc/sudoers
+```
+
+
+Add users
+```
+# useradd -g wheel -p GraceHopper1906 codi
+# useradd -g wheel -p GraceHopper1906 sal
+# useradd -g wheel luke
+```
+
+
+
