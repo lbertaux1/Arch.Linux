@@ -234,7 +234,7 @@ I will be using `grub` as the boot loader.
 # grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 ```
 
-2. Generate the main `grub` configuration file. To do so, enter the following command.
+3. Generate the main `grub` configuration file. To do so, enter the following command.
 
 ```
 # grub-mkconfig -o /boot/grub/grub.cfg
@@ -248,5 +248,29 @@ Unmount the partitions and reboot your system
 # exit
 # umount -R /mnt
 # reboot
+```
+
+### Install Gnome
+
+Install `Gnome` using `pacman` and use `gdm` to make GUI start on system start up.
+```
+# Pacman -S gnome 
+# Pacman -S gnome-tweaks
+# Systemctl enable gdm
+# Reboot
+```
+
+### Firefox
+
+Install Firefox
+
+```
+#pacman -S firefox
+```
+
+### Install zsh
+
+```
+Pacman -S zshvim
 ```
 
