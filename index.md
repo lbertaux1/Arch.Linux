@@ -108,7 +108,7 @@ Finally, mount the `EFI` partition to that directory.
 
 ### Installation
 
-Now you need to install essential packages. Use the 'pacstrap' script to install the base package, Linux kernel, and firmware for common hardware.
+Now you need to install essential packages. Use the `pacstrap` script to install the base package, Linux kernel, and firmware for common hardware.
 
 ```
 # pacstrap /mnt base linux linux-firmware
@@ -129,7 +129,7 @@ Now you need to chroot into the base of your system.
 # arch-chroot /mnt
 ```
 
-Next, you should set the time zone. You should replace "US" and "Central" with your region for your time zone.
+Next, you should set the time zone. I am using "US" and "Central" for my time zone. You should replace "US" and "Central" with your region for your time zone.
 
 ```
 # ln -sf /usr/share/zoneinfo/US/Central /etc/localtime
@@ -150,6 +150,10 @@ Next you should install `vim` using `pacman`.
 ### Localization
 
 Next you should edit the `/etc/locale.gen` file and uncomment `en_US.UTF-8 UTF-8` by removing the `#` in front of it.
+
+```
+# vim /etc/locale.gen
+```
 
 Then, enter the following command to generate the locales.
 
@@ -192,7 +196,7 @@ Next, determine your network interface name.
 
 Aside from the `lo` interface, you should see an additional one. Mine is `ens33`.
 
-Edit `/etc/systemd/network/20-wired.network` to configure DHCP.
+Edit `/etc/systemd/network/20-wired.network` to configure DHCP. Set name equal to `ens33`.
 
 ```
 [Match]
@@ -222,19 +226,19 @@ If you are using an Intel processor, install Intel microcode.
 
 I will be using `grub` as the boot loader.
 
-1. Install the `grub` and `efibootmgr` packages to allow you to use grub as the bootloader.
+ Install the `grub` and `efibootmgr` packages to allow you to use grub as the bootloader.
 
 ```
 # pacman -S grub efibootmgr
 ```
 
-2. Install the `grub bootloader` to the `EFI partition`.
+Install the `grub bootloader` to the `EFI partition`.
 
 ```
 # grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 ```
 
-3. Generate the main `grub` configuration file. To do so, enter the following command.
+Generate the main `grub` configuration file. To do so, enter the following command.
 
 ```
 # grub-mkconfig -o /boot/grub/grub.cfg
